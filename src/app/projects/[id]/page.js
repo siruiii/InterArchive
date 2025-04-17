@@ -31,7 +31,7 @@ export default async function Page({ params }) {
   } catch (e) {}
 
   return (
-    <article class="container py-12 mx-auto max-w-6xl grid md:grid-cols-[2fr_3fr] gap-4 md:gap-8">
+    <article className="container py-12 mx-auto max-w-6xl grid md:grid-cols-[2fr_3fr] gap-4 md:gap-8">
       <div>
         <img
           src={fullImageUrl}
@@ -51,12 +51,12 @@ export default async function Page({ params }) {
           By {listFormatter.format(project.users.map((user) => user.user_name))}
         </p>
         <p>{venue}</p>
-        <dl class="mb-6">
+        <dl className="mb-6">
           <dt className="font-bold mt-4">Elevator pitch</dt>
           <dd className="text-pretty">{project.elevator_pitch}</dd>
 
           <dt className="font-bold mt-4">Keywords</dt>
-          <dd class="flex flex-wrap gap-2">
+          <dd className="flex flex-wrap gap-2">
             {project.keywords.split(",").map((kword) => (
               <span
                 key={kword}
@@ -70,7 +70,7 @@ export default async function Page({ params }) {
           <dt className="font-bold mt-4">
             Class{project.classes.length > 1 ? "es" : ""}
           </dt>
-          <dd class="flex flex-wrap gap-2">
+          <dd className="flex flex-wrap gap-2">
             {project.classes.map((cls) => (
               <span
                 key={cls.class_name}
