@@ -25,6 +25,10 @@ export default async function Page({ params }) {
   const fullImageUrl = `${cloudinaryBase}/projectImages/${id}`;
   const project = projects.find((p) => p.project_id === id);
   const venue = venues[project.venue_id];
+  let urlDomain = "";
+  try {
+    urlDomain = new URL(project.url).hostname;
+  } catch (e) {}
 
   return (
     <article class="container py-12 mx-auto max-w-6xl grid md:grid-cols-[2fr_3fr] gap-4 md:gap-8">
@@ -89,12 +93,12 @@ export default async function Page({ params }) {
             {project.technical_system}
           </dd>
         </dl>
-        {project.url && (
+        {project.url.length > 8 && (
           <a
             href={project.url}
             className="bg-black text-white py-2 px-4 font-semibold rounded-md hover:bg-neutral-800 transition-colors"
           >
-            Open project on {new URL(project.url).hostname}
+            Open project on {urlDomain}
           </a>
         )}
       </div>
