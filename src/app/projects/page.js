@@ -2,10 +2,11 @@
 
 import { useEffect, useState, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const ReactFlowWrapper = dynamic(
   () => import("@/components/ReactFlowWrapper"),
-  { ssr: false }
+  { ssr: false },
 );
 
 // ✅ Modal component with project info
@@ -15,6 +16,15 @@ function ImageModal({ imageUrl, project, onClose, venueMap }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
       <div className="relative w-[1000px] h-[600px] bg-white rounded-xl overflow-hidden flex">
+        {project?.project_id && (
+          <Link
+            href={`/projects/${project?.project_id}`}
+            onClick={onClose}
+            className="absolute top-3 right-12 w-8 h-8 rounded-full bg-white shadow text-xl font-bold flex items-center justify-center hover:bg-gray-200 transition"
+          >
+            ↗️
+          </Link>
+        )}
         {/* Close button */}
         <button
           onClick={onClose}
@@ -45,9 +55,7 @@ function ImageModal({ imageUrl, project, onClose, venueMap }) {
               </p>
               <details>
                 <summary>More description</summary>
-                <p>
-                {project.description}
-                </p>
+                <p>{project.description}</p>
               </details>
               <p>
                 <span className="font-semibold">Venue:</span>{" "}
@@ -123,7 +131,7 @@ export default function ProjectsPage() {
                 "https://res.cloudinary.com/dgo1cif3i/image/upload";
               const fullImageUrl = `${cloudinaryBase}/projectImages/${idWithoutExt}`;
               const matchedProject = projectData.find(
-                (p) => p.project_id === idWithoutExt
+                (p) => p.project_id === idWithoutExt,
               );
 
               setSelectedImageUrl(fullImageUrl);
@@ -152,7 +160,7 @@ export default function ProjectsPage() {
         };
       });
     },
-    [projectData]
+    [projectData],
   );
 
   // Load project metadata
