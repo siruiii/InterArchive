@@ -6,12 +6,15 @@ import 'reactflow/dist/style.css';
 
 // Preloaded image node type
 const ImageNode = ({ data }) => {
+  const { onClick, label } = data;
+
   return (
-    <div style={{ padding: 0 }}>
-      {data.label}
+    <div onClick={onClick} style={{ padding: 0, cursor: 'pointer' }}>
+      {label}
     </div>
   );
 };
+
 
 export default function ReactFlowWrapper({ nodes, edges }) {
   const nodeTypes = useMemo(() => ({
@@ -25,8 +28,9 @@ export default function ReactFlowWrapper({ nodes, edges }) {
       nodeTypes={nodeTypes}
       fitView
       proOptions={{ hideAttribution: true }}
+      minZoom={0.05} // 👈 set your desired min zoom level
+      maxZoom={2}
     >
-      <MiniMap />
       <Controls />
     </ReactFlow>
   );
